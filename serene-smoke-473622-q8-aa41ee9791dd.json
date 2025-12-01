@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "serene-smoke-473622-q8",
+  "private_key_id": "aa41ee9791ddf67290b966580ad593171c751003",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCngBPMvTHLa5am\nlrv3f/yRxBy5JMmD/tZedaVRVRXWOjXet7g7xeY5wg10I51w3llIVzmk4oSNu9DX\nt3QZb6hr6rEbi5mxC2yOEXje5w1S0hPnTJ0zhNIg9uGCxBAojCN+s6AbtBTk60bD\nyAh6JTpAO66cDdDeQkUYEc0CW3R2ssrySTwMG3VjuH66JzQbAA9kRTMjtOq3WVHb\nQEpra5ebFH24jsLa58qD0+YFrzLhqg91p0IGnW4gTlGhHIHOHQCmMYPcsfb1KDCy\nX186by9Ktckbk8KIIc4Du/6jUn7ZXeGOpegzPesOMvg23PTneLzz9YzmMcr8DEvh\n8oGNWLVtAgMBAAECgf9I9/yb97dYC25AYVGyN0xKG7dbanp3sNXjLAfMo6Xr3kto\nuumHghyxJRVJm17iqBLnufNivKC5HfQ+fzMIc/2VsF7lDscice/9GJNGPoYhprha\nVCqJChaxCKtNiShcUOE+B93oxfhUO4AGK8jzVMqFeiUpREk/lhj9b4bTsNLzQ5Dy\n2x2vpOzHY+uEY5ICH/lh3xdDK8wx3SfhyFKcHrBaK/YpJ1X0Momar1XCSNapFMNl\nb583hEVudbdBmb5UY8QEeSsNVd3zpF7uh32UMoYKBoCPvI0MwTGtCWet4LhX9N4U\nETUAE+YT6NXwhdMccgKcuvDh0rU7ZtV5iZN4ekkCgYEA3GIfSj5iQz0fopQZBe++\n1x03k677VQ2x8FB4JjLRMRuqrK+bsqKWrdrKFZqckCSZvlZTLLDvMk1weXfy/LYV\n4l0cm+GrZjoM5097w+4FLy/AklyGw9bq2CCXgiPuqLk24942cvolu5Ceef2q27SR\nBedWT1wWudQQRdv6JOjwVrsCgYEAwpIJcOMm2bugOBIbpJ8qTi1ka6ofNn1lUbqw\n74IirY61ZLZgNzb70Ql79lAujxR563aJRlYgpvSauAUhGpG1yu6uftKEyJWJ0nQP\nrBoxXLFq5gqU01mc7o8Z6pE2wmEPAVNYZP/trX51GgGcA02cx2w07OKj/M7BgGd+\nzcIEJfcCgYBgHDazJTOrSSvTtiyXhy++FpLXSDd5p0hTmnRbjEvo070CJG+NXxTB\nayo4c74VqrCV7oXFdsBKOrVzc9k3Vp2Co8LHRIqAQY7BDcvW7aW7J2MfMVTgcYjn\niocojU0Wrfd/NrieOfNcsjw6zWLHAB9C6NmeMHYEwrP6E24qzJ+L4wKBgQCTPaaN\nWijdXqJ5rCJlKtn9/VXgMAac2rog5lHdfjK1+qgExgr73c0kvLOli7ogJtO4v6RU\nqPrevX6UQbVygM/8+TDt4mv/y0JYE+KET/II/m4yFdHYOxmKYpqvKyMwZ/jN/P+I\ntzBrOaZufsdMrKA3PgizNzP4LZK7lBaeqPMwswKBgQC4ToBK8jsvljrAxGSy7/Xa\nmubJe0QN6DNqsaEacvQO4zwn388oZozmkKtGNhszVt+yl3OgPBzpYwYbSjaWZt09\npbXc2Dl+gZ39SruiioDll82CiBhMWQALkCa3xbI9Z/a/lZnDgsC/ZepG99NdR/OZ\nXzhtSUxdNHBu0UIxdbettg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "mlops-recommender@serene-smoke-473622-q8.iam.gserviceaccount.com",
+  "client_id": "102259883074653272818",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/mlops-recommender%40serene-smoke-473622-q8.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
