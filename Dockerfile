@@ -44,9 +44,6 @@ FROM python:3.12-slim-bookworm
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
-RUN printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\n" > /etc/resolv.conf
-
-
 # Replace mirrors in the new .sources file
 RUN sed -i 's|deb.debian.org|deb.mirror.kernel.org|g' /etc/apt/sources.list.d/debian.sources
 
