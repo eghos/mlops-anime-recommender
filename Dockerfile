@@ -74,22 +74,18 @@
 
 #######################################
 
-# Use Python 3.12 slim
 FROM python:3.12-slim-bookworm
 
-RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/* /var/lib/apt/lists/partial/*
-
-# Force IPv4 and set a reliable mirror
-RUN echo "deb http://deb.debian.org/debian bookworm main contrib non-free" > /etc/apt/sources.list \
+# Force IPv4, set reliable mirrors, install dependencies in one go
+RUN rm -rf /etc/apt/sources.list.d/* /var/lib/apt/lists/* /var/cache/apt/* \
+    && echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4 \
+    && echo "deb http://deb.debian.org/debian bookworm main contrib non-free" > /etc/apt/sources.list \
     && echo "deb http://deb.debian.org/debian bookworm-updates main contrib non-free" >> /etc/apt/sources.list \
-    && echo "deb http://security.debian.org/debian-security bookworm-security main contrib non-free" >> /etc/apt/sources.list
-
-RUN echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4
-
-
-# Update and install packages
-RUN apt-get update \
+    && echo "deb http://security.debian.org/debian-security bookworm-security main contrib non-free" >> /etc/apt/sources.list \
+    && apt-get update \
     && apt-get install -y --no-install-recommends --fix-missing \
+        ca-certificates \
+        gnupg \
         build-essential \
         libopenblas-dev \
         liblapack-dev \
@@ -100,14 +96,14 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-
+# Application setup
 WORKDIR /app
 COPY . .
 
 RUN pip install --no-cache-dir -e .
 
-# If you actually want training inside the image (not recommended)
-RUN python pipeline/training_pipeline.py
+# Optional: only run training if needed
+# RUN python pipeline/training_pipeline.py
 
 EXPOSE 5000
 CMD ["python", "application.py"]
