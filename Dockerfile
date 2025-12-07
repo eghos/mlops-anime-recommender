@@ -84,17 +84,19 @@ RUN echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4 \
     && echo "deb http://security.debian.org/debian-security bookworm-security main contrib non-free" >> /etc/apt/sources.list
 
 # Update and install packages
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
         build-essential \
         libopenblas-dev \
         liblapack-dev \
         libhdf5-dev \
         libprotobuf-dev \
         protobuf-compiler \
-        python3-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+        python3-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 
 WORKDIR /app
 COPY . .
