@@ -76,50 +76,30 @@
 
 # FROM python:3.12-slim-bookworm
 # Use the full Python image (includes pip, etc.)
-FROM python:3.12-bookworm
+FROM python:3.12-slim
 
-# Set working directory
 WORKDIR /app
 
-# Force IPv4 and clean APT caches
-RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/partial \
-    && echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4
-
-# Use Debian snapshot mirror to avoid hash mismatches
-RUN echo "deb http://snapshot.debian.org/archive/debian/20251201T000000Z bookworm main contrib non-free" > /etc/apt/sources.list \
-    && echo "deb http://snapshot.debian.org/archive/debian/20251201T000000Z bookworm-updates main contrib non-free" >> /etc/apt/sources.list \
-    && echo "deb http://snapshot.debian.org/archive/debian-security/20251201T000000Z bookworm-security main contrib non-free" >> /etc/apt/sources.list
-
-# Update and install all required system packages in one go
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        ca-certificates \
-        gnupg \
+# Minimal system deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         gfortran \
-        libgfortran5 \
-        libopenblas-dev \
-        liblapack-dev \
-        libhdf5-dev \
-        libprotobuf-dev \
-        protobuf-compiler \
         python3-dev \
+        wget \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy your application code
+# Copy code
 COPY . .
 
-# Install Python dependencies from your local setup
-RUN pip install --no-cache-dir -e .
+# Install Python deps via pip (will pull wheels for numpy, scipy, h5py, protobuf, etc.)
+RUN pip install --upgrade pip setuptools wheel \
+    && pip install --no-cache-dir -e .
 
-# Optional: run the training pipeline inside the image (not recommended for production)
-# Comment this out if you only want to serve the model
+# Optional: run training pipeline
 RUN python pipeline/training_pipeline.py
 
-# Expose your app port
 EXPOSE 5000
-
-# Command to start your application
 CMD ["python", "application.py"]
+
 
