@@ -75,11 +75,23 @@
 #######################################
 
 # FROM python:3.12-slim-bookworm
+# Use the full Python image (includes pip, etc.)
 FROM python:3.12-bookworm
 
-# Force IPv4, set reliable mirrors, install dependencies in one go
-RUN echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4 \
-    && apt-get update -o Acquire::Retries=5 \
+# Set working directory
+WORKDIR /app
+
+# Force IPv4 and clean APT caches
+RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/partial \
+    && echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4
+
+# Use Debian snapshot mirror to avoid hash mismatches
+RUN echo "deb http://snapshot.debian.org/archive/debian/20251201T000000Z bookworm main contrib non-free" > /etc/apt/sources.list \
+    && echo "deb http://snapshot.debian.org/archive/debian/20251201T000000Z bookworm-updates main contrib non-free" >> /etc/apt/sources.list \
+    && echo "deb http://snapshot.debian.org/archive/debian-security/20251201T000000Z bookworm-security main contrib non-free" >> /etc/apt/sources.list
+
+# Update and install all required system packages in one go
+RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         ca-certificates \
         gnupg \
@@ -93,16 +105,21 @@ RUN echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4 \
         protobuf-compiler \
         python3-dev \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
-# Application setup
-WORKDIR /app
+# Copy your application code
 COPY . .
 
+# Install Python dependencies from your local setup
 RUN pip install --no-cache-dir -e .
 
-# Optional: only run training if needed
-# RUN python pipeline/training_pipeline.py
+# Optional: run the training pipeline inside the image (not recommended for production)
+# Comment this out if you only want to serve the model
+RUN python pipeline/training_pipeline.py
 
+# Expose your app port
 EXPOSE 5000
+
+# Command to start your application
 CMD ["python", "application.py"]
+
