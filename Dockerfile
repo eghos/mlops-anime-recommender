@@ -77,16 +77,19 @@
 # Use Python 3.12 slim
 FROM python:3.12-slim-bookworm
 
+RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/* /var/lib/apt/lists/partial/*
+
 # Force IPv4 and set a reliable mirror
-RUN echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4 \
-    && echo "deb http://deb.debian.org/debian bookworm main contrib non-free" > /etc/apt/sources.list \
+RUN echo "deb http://deb.debian.org/debian bookworm main contrib non-free" > /etc/apt/sources.list \
     && echo "deb http://deb.debian.org/debian bookworm-updates main contrib non-free" >> /etc/apt/sources.list \
     && echo "deb http://security.debian.org/debian-security bookworm-security main contrib non-free" >> /etc/apt/sources.list
 
+RUN echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4
+
+
 # Update and install packages
-RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends --fix-missing \
         build-essential \
         libopenblas-dev \
         liblapack-dev \
