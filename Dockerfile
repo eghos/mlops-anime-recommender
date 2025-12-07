@@ -78,16 +78,14 @@
 FROM python:3.12-bookworm
 
 # Force IPv4, set reliable mirrors, install dependencies in one go
-RUN rm -rf /etc/apt/sources.list.d/* /var/lib/apt/lists/* /var/cache/apt/* \
-    && echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4 \
-    && echo "deb http://deb.debian.org/debian bookworm main contrib non-free" > /etc/apt/sources.list \
-    && echo "deb http://deb.debian.org/debian bookworm-updates main contrib non-free" >> /etc/apt/sources.list \
-    && echo "deb http://security.debian.org/debian-security bookworm-security main contrib non-free" >> /etc/apt/sources.list \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends --fix-missing \
+RUN echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4 \
+    && apt-get update -o Acquire::Retries=5 \
+    && apt-get install -y --no-install-recommends \
         ca-certificates \
         gnupg \
         build-essential \
+        gfortran \
+        libgfortran5 \
         libopenblas-dev \
         liblapack-dev \
         libhdf5-dev \
