@@ -74,7 +74,8 @@
 
 #######################################
 
-FROM python:3.12-slim-bookworm
+# FROM python:3.12-slim-bookworm
+FROM python:3.12-bookworm
 
 # Force IPv4, set reliable mirrors, install dependencies in one go
 RUN rm -rf /etc/apt/sources.list.d/* /var/lib/apt/lists/* /var/cache/apt/* \
