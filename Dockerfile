@@ -45,7 +45,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
 # Replace mirrors in the new .sources file
-RUN sed -i 's|deb.debian.org|deb.mirror.kernel.org|g' /etc/apt/sources.list.d/debian.sources
+RUN sed -i 's|http://deb.mirror.kernel.org/debian|http://deb.debian.org/debian|g' /etc/apt/sources.list
 
 
 # Clean APT and ensure fresh update
